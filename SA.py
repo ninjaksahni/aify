@@ -36,7 +36,7 @@ else:
     col1, col2 = st.columns([2, 1])
     with col1:
         # Input for stock asset
-        asset = st.text_input('Enter the stock asset symbol (e.g., AAPL for Apple or ZOMATO.NS for Indian stocks):', 'AAPL')
+        asset = st.text_input('Enter the stock asset symbol (e.g., AAPL for Apple or ZOMATO.NS for Indian stocks or ^NSEI for Index):', 'NVDA')
 
         # Input for date using calendar
         date_input = st.date_input('Select the date:', value=datetime.now())
