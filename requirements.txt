@@ -3,3 +3,4 @@ pandas
 yfinance
 plotly
 python-dotenv
+asset_sentiment_analyzer
