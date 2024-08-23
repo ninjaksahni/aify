@@ -27,7 +27,7 @@ else:
         """, unsafe_allow_html=True)
 
     # Display a logo
-    st.image('/Users/kunalsahni/Documents/Dev/sentx/2.png', width=150)
+    st.image('https://github.com/ninjaksahni/aify/blob/44404d018aafbea07f654276f9c5a8fd0b5df44e/2.png', width=150)
 
     # Initialize Streamlit app
     st.markdown('<p class="big-font">Stock Sentiment Analysis KSVX</p>', unsafe_allow_html=True)
