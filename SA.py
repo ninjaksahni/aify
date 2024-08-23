@@ -8,13 +8,13 @@ from asset_sentiment_analyzer import SentimentAnalyzer
 from datetime import datetime
 import calendar
 
-# Load environment variables from .env file
-load_dotenv()
-openai_key = os.getenv('OPENAI_API_KEY')
+# Load the OpenAI API key from Streamlit secrets
+openai_key = st.secrets["openai"]["api_key"]
+
 
 # Check if the API key is loaded
 if not openai_key:
-    st.error("OpenAI API key is missing. Please check your .env file.")
+    st.error("OpenAI API key is missing.")
 else:
     # Add custom CSS
     st.markdown("""
@@ -34,6 +34,7 @@ else:
 
     # Create columns for layout
     col1, col2 = st.columns([2, 1])
+
     with col1:
         # Input for stock asset
         asset = st.text_input('Enter the stock asset symbol (e.g., AAPL for Apple or ZOMATO.NS for Indian stocks or ^NSEI for Index):', 'NVDA')
@@ -102,6 +103,7 @@ else:
                 try:
                     news_links = analyzer.fetch_news_links(news_date=formatted_date)
                     
+                    # Display news links in the left sidebar expander (not expanded by default)
                     with st.sidebar.expander("News Links", expanded=False):
                         if news_links:
                             for url in news_links:
@@ -109,7 +111,7 @@ else:
                         else:
                             st.sidebar.write("No news links available for the selected date.")
                     
-                    # Display news content in sidebar
+                    # Display news content in the left sidebar expander (not expanded by default)
                     with st.sidebar.expander("News Content", expanded=False):
                         if news_links:
                             for url in news_links:
@@ -121,10 +123,12 @@ else:
                 except Exception as e:
                     st.error(f"An error occurred while fetching news links: {e}")
                 
-                # Generate and display the report (reduce by 50%)
+                # Generate and display the report with the selected date
+                st.write(f"### News Analysis Report for {formatted_display_date}")
                 report = analyzer.produce_daily_report(date=formatted_date, max_words=150)
-                st.write("### Daily Report")
                 st.write(report)
 
             except ValueError as e:
                 st.error(f"An error occurred: {e}")
+
+    # No right sidebar
